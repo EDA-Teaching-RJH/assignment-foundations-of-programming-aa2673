@@ -70,30 +70,37 @@ def display_roster(names,ranks,divisions,ids):
         print(f"{names[i]:<30} {ranks[i]:<30} {divisions[i]:<30} {ids[i]:<30}")
 
 def remove_member(names,ranks,divisions,ids):
-    remove = input("Enter the ID of the crew member you'd like to remove: ").upper()
-    if remove in ids:
-        rmv = ids.index(remove)
-        names.pop(rmv)
-        ranks.pop(rmv)
-        divisions.pop(rmv)
-        ids.pop(rmv)
-        print("Crew member removed")
-    else:
-        print("ID not found among existing crewmates")
+    while True:
+        remove = input("Enter the ID of the crew member you'd like to remove: ").upper()
+        if remove in ids:
+            rmv = ids.index(remove)
+            names.pop(rmv)
+            ranks.pop(rmv)
+            divisions.pop(rmv)
+            ids.pop(rmv)
+            print("Crew member removed")
+            break
+        else:
+            print("ID not found among existing crewmates")
 
 def update_rank(names,ranks,divisions,ids):
     validRanks = ["Fleet Admiral","Admiral", "Vice Admiral", "Rear Admiral", "Captain", "Commander", "Lieutenant Commander", "Lieutenant", "Ensign", "Cadet"]
-    update = input("Enter the ID of the crew member whose rank you'd like to update: ").upper()
-    if update in ids:
-        findMember = ids.index(update)
+    while True:
+        update = input("Enter the ID of the crew member whose rank you'd like to update: ").upper()
+        if update in ids:
+            findMember = ids.index(update)
+            break
+        else:
+            print("Invalid ID")
+    while True:
         rankUpdate = input("What rank would you like to change " + ranks[findMember] + " " + names[findMember] + " to: ").strip().title()
         if rankUpdate in validRanks:
             ranks[findMember] = rankUpdate
             print("Crew member's rank has been updated.")
+            break
         else:
             print("Invalid rank")
-    else:
-        print("Invalid ID")
+            
 
 
 
