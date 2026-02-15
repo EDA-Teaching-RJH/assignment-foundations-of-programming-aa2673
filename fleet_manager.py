@@ -23,7 +23,7 @@ def display_menu(names,ranks,divisions,ids):
                 elif choice == "3":
                     update_rank()
                 elif choice == "4":
-                    display_roster()
+                    display_roster(names,ranks,divisions,ids)
                 elif choice == "5":
                     search_crew()
                 elif choice == "6":
@@ -63,6 +63,11 @@ def add_member(names,ranks,divisions,ids):
         else:
             print("Invalid please try again.")
 
+def display_roster(names,ranks,divisions,ids):
+    print("\nCurrent Crew:")
+    print(f"{'Name':<30} {'Rank':<30} {'Division':<30} {'ID':<30}")
+    for i in range(len(names)):
+        print(f"{names[i]:<30} {ranks[i]:<30} {divisions[i]:<30} {ids[i]:<30}")
 
 
 main()
