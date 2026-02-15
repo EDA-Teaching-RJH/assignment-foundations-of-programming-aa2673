@@ -1,6 +1,8 @@
-def main()
+def main():
+    names, ranks, divisions, ids = init_database()
     
-def init_database()
+    
+def init_database():
     names = ["James T. Kirk", "Spock", "Jean-Luc Picard", "Data", "Kathryn Janeway"]
     ranks = ["Captain", "Lt. Commander", "Captain", "Lt. Commander", "Captain"]
     divisions = ["Command", "Science", "Command", "Operations", "Command"]
@@ -8,6 +10,6 @@ def init_database()
 
     return names, ranks, divisions, ids
 
-def 
+
 
 main()
