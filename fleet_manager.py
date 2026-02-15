@@ -19,7 +19,7 @@ def display_menu(names,ranks,divisions,ids):
                 if choice == "1":
                     add_member(names,ranks,divisions,ids)
                 elif choice == "2":
-                    remove_member()
+                    remove_member(names,ranks,divisions,ids)
                 elif choice == "3":
                     update_rank()
                 elif choice == "4":
@@ -68,6 +68,19 @@ def display_roster(names,ranks,divisions,ids):
     print(f"{'Name':<30} {'Rank':<30} {'Division':<30} {'ID':<30}")
     for i in range(len(names)):
         print(f"{names[i]:<30} {ranks[i]:<30} {divisions[i]:<30} {ids[i]:<30}")
+
+def remove_member(names,ranks,divisions,ids):
+    remove = input("Enter the ID of the crew member you'd like to remove: ")
+    if remove in ids:
+        rmv = ids.index(remove)
+        names.pop(rmv)
+        ranks.pop(rmv)
+        divisions.pop(rmv)
+        ids.pop(rmv)
+        print("Crew member removed")
+    else:
+        print("ID not found among existing crewmates")
+
 
 
 main()
