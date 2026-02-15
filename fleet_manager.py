@@ -25,7 +25,7 @@ def display_menu(names,ranks,divisions,ids):
         elif choice == "4":
             display_roster(names,ranks,divisions,ids)
         elif choice == "5":
-            search_crew()
+            search_crew(names,ranks,divisions,ids)
         elif choice == "6":
             filter_division()
         elif choice == "7":
@@ -129,6 +129,51 @@ def update_rank(names,ranks,divisions,ids):
                 print("Invalid rank")
             
 
-
-
+def search_crew(names,ranks,divisions,ids):
+    while True:
+        escape = input("Press N to return to menu or Y to continue: ").upper()
+        if escape == "N":
+            break
+        elif escape == "Y":
+            searchTerm = input("What would you like to search crew members by Name, Rank, Division or Id: ").strip().title()
+            if searchTerm == "Name":
+                nameSearch = input("Enter the name you'd like to search for: ").strip().title()
+                if nameSearch in names:
+                    name = names.index(nameSearch)
+                    print("Crew member details\nName: " + names[name] + " \nRank: " + ranks[name] + " \nDivision: " + divisions[name] + " \nID: "+ ids[name]) 
+                    break
+                else:
+                    print("No crew members of this name exist")
+            elif searchTerm == "Rank":
+                rankSearch = input("Enter the rank you'd like to search for: ").strip().title()
+                rankFound = False
+                for i in range(len(ranks)):
+                    if rankSearch == ranks[i]:
+                        rank = i
+                        print("\n"+ rankSearch, "Rank Crew member details\nName: " + names[rank] + " \nRank: " + ranks[rank] + " \nDivision: " + divisions[rank] + " \nID: "+ ids[rank]) 
+                        rankFound = True
+                        
+                if not rankFound:
+                    print("No crew members of this rank exist")
+            elif searchTerm == "Division":
+                divSearch = input("Enter the division you'd like to search for: ").strip().title()
+                divFound = False
+                for d in range(len(divisions)):
+                    if divSearch == divisions[d]:
+                        div = d
+                    
+                        print("\n"+ divSearch, "Division Crew member details\nName: " + names[div] + " \nRank: " + ranks[div] + " \nDivision: " + divisions[div] + " \nID: "+ ids[div]) 
+                        divFound = True
+                if not divFound:
+                    print("No crew members of this division exist")
+            elif searchTerm == "Id":
+                idSearch = input("Enter the ID you'd like to search for: ").upper()
+                if idSearch in ids:
+                    id = ids.index(idSearch)
+                    print("Crew member details\nName: " + names[id] + " \nRank: " + ranks[id] + " \nDivision: " + divisions[id] + " \nID: "+ ids[id]) 
+                    break
+                else:
+                    print("No crew members with this ID exist")
+            else:
+                print("Please enter a valid search parameter")
 main()
