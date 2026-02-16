@@ -51,7 +51,7 @@ def display_menu(names,ranks,divisions,ids):
         
 
 def init_database():
-    names = ["James T. Kirk", "Spock", "Jean-Luc Picard", "Data", "Kathryn Janeway"]
+    names = ["Kirk", "Spock", "Picard", "Data", "Janeway"]
     ranks = ["Captain", "Lieutenant Commander", "Captain", "Lieutenant Commander", "Captain"]
     divisions = ["Command", "Science", "Command", "Operations", "Command"]
     ids = ["SC 937-0176 CEC", "S179-276", "289-49-16-JLP", "034-756-319-SPD", "927-20-40-52-T"]
@@ -59,20 +59,24 @@ def init_database():
     return names, ranks, divisions, ids
 
 def add_member(names,ranks,divisions,ids):
-    validRanks = ["Fleet Admiral","Admiral", "Vice Admiral", "Rear Admiral", "Captain", "Commander", "Lieutenant Commander", "Lieutenant", "Ensign", "Cadet"]
-    newMemberName = input("\nNew members' name: ").strip().title()
-    newMemberRank = input("New members' rank: ").strip().title()
-    newMemberDivision = input("New members' division: ").strip().title()
-    newMemberId = input("New members' ID: ").upper().strip()
-    if newMemberName != "" and newMemberRank in validRanks and newMemberDivision != "" and newMemberId not in ids:
-        names.append(newMemberName)
-        ranks.append(newMemberRank)
-        divisions.append(newMemberDivision)
-        ids.append(newMemberId)
-        print("New member added.")
-        
-    else:
-        print("Invalid.")
+    while True:
+        validRanks = ["Fleet Admiral","Admiral", "Vice Admiral", "Rear Admiral", "Captain", "Commander", "Lieutenant Commander", "Lieutenant", "Ensign", "Cadet"]
+        newMemberName = input("\nNew members' name: ").strip().title()
+        newMemberRank = input("New members' rank: ").strip().title()
+        newMemberDivision = input("New members' division: ").strip().title()
+        newMemberId = input("New members' ID: ").upper().strip()
+        if newMemberName != "" and newMemberRank in validRanks and newMemberDivision != "" and newMemberId not in ids:
+            names.append(newMemberName)
+            ranks.append(newMemberRank)
+            divisions.append(newMemberDivision)
+            ids.append(newMemberId)
+            print("New member added.")
+            
+        else:
+            print("Invalid.")
+            yn = continue_or_menu()
+            if yn == False:
+                return
 
 def display_roster(names,ranks,divisions,ids):
     print("\nCurrent Crew:")
@@ -81,103 +85,136 @@ def display_roster(names,ranks,divisions,ids):
         print(f"{names[i]:<30} {ranks[i]:<30} {divisions[i]:<30} {ids[i]:<30}")
 
 def remove_member(names,ranks,divisions,ids):
-    remove = input("Enter the ID of the crew member you'd like to remove: ").upper().strip()
-    if remove in ids:
-        rmv = ids.index(remove)
-        names.pop(rmv)
-        ranks.pop(rmv)
-        divisions.pop(rmv)
-        ids.pop(rmv)
-        print("Crew member removed")
-        
-    else:
-        print("ID not found among existing crewmates")
+    while True:
+        remove = input("Enter the ID of the crew member you'd like to remove: ").upper().strip()
+        if remove in ids:
+            rmv = ids.index(remove)
+            names.pop(rmv)
+            ranks.pop(rmv)
+            divisions.pop(rmv)
+            ids.pop(rmv)
+            print("Crew member removed")
+            return
+        else:
+            print("ID not found among existing crewmates")
+            yn = continue_or_menu()
+            if yn == False:
+                return
 
 def update_rank(names,ranks,ids):
     validRanks = ["Fleet Admiral","Admiral", "Vice Admiral", "Rear Admiral", "Captain", "Commander", "Lieutenant Commander", "Lieutenant", "Ensign", "Cadet"]
+    while True:
+        
+        update = input("Enter the ID of the crew member whose rank you'd like to update: ").upper().strip()
+        if update in ids:
+            findMember = ids.index(update)
+            
+            rankUpdate = input("What rank would you like to change " + ranks[findMember] + " " + names[findMember] + " to: ").strip().title()
+            if rankUpdate in validRanks:
+                ranks[findMember] = rankUpdate
+                print("Crew member's rank has been updated.")
+                return
 
         
-    update = input("Enter the ID of the crew member whose rank you'd like to update: ").upper().strip()
-    if update in ids:
-        findMember = ids.index(update)
+            else:
+                print("Invalid rank")
+                yn = continue_or_menu()
+                if yn == False:
+                    return
+            
         
-        rankUpdate = input("What rank would you like to change " + ranks[findMember] + " " + names[findMember] + " to: ").strip().title()
-        if rankUpdate in validRanks:
-            ranks[findMember] = rankUpdate
-            print("Crew member's rank has been updated.")
-            return
-
-    
         else:
-            print("Invalid rank")
-        
-    
-    else:
-        print("Invalid ID")
+            print("Invalid ID")
+            yn = continue_or_menu()
+            if yn == False:
+                return
             
            
             
 
 def search_crew(names,ranks,divisions,ids):
-    searchTerm = input("What would you like to search crew members by Name, Rank, Division or Id: ").strip().title()
-    if searchTerm == "Name":
-        nameSearch = input("Enter the name you'd like to search for: ").strip().title()
-        if nameSearch in names:
-            name = names.index(nameSearch)
-            print("Crew member", nameSearch, "details\nName: " + names[name] + " \nRank: " + ranks[name] + " \nDivision: " + divisions[name] + " \nID: "+ ids[name]) 
-            
+    while True:
+        searchTerm = input("What would you like to search crew members by Name, Rank, Division or Id: ").strip().title()
+        if searchTerm == "Name":
+            nameSearch = input("Enter the name you'd like to search for: ").strip().title()
+            if nameSearch in names:
+                name = names.index(nameSearch)
+                print("Crew member", nameSearch, "details\nName: " + names[name] + " \nRank: " + ranks[name] + " \nDivision: " + divisions[name] + " \nID: "+ ids[name]) 
+                return
+            else:
+                print("No crew members of this name exist")
+                yn = continue_or_menu()
+                if yn == False:
+                    return
+        elif searchTerm == "Rank":
+            rankSearch = input("Enter the rank you'd like to search for: ").strip().title()
+            rankFound = False
+            for i in range(len(ranks)):
+                if rankSearch == ranks[i]:
+                    rank = i
+                    print("\n"+ rankSearch, "Rank Crew member details")
+                    print("\nName: " + names[rank] + " \nRank: " + ranks[rank] + " \nDivision: " + divisions[rank] + " \nID: "+ ids[rank]) 
+                    rankFound = True
+            if rankFound:
+                return
+                    
+            if not rankFound:
+                print("No crew members of this rank exist")
+                yn = continue_or_menu()
+                if yn == False:
+                    return
+        elif searchTerm == "Division":
+            divSearch = input("Enter the division you'd like to search for: ").strip().title()
+            divFound = False
+            for d in range(len(divisions)):
+                if divSearch == divisions[d]:
+                    div = d
+                    print("\n"+ divSearch, "Division Crew member details")
+                    print("\nName: " + names[div] + " \nRank: " + ranks[div] + " \nDivision: " + divisions[div] + " \nID: "+ ids[div]) 
+                    divFound = True
+            if divFound:
+                return
+            if not divFound:
+                print("No crew members of this division exist")
+                yn = continue_or_menu()
+                if yn == False:
+                    return
+        elif searchTerm == "Id":
+            idSearch = input("Enter the ID you'd like to search for: ").upper().strip()
+            if idSearch in ids:
+                id = ids.index(idSearch)
+                print("Crew member of ID", idSearch, "details\nName: " + names[id] + " \nRank: " + ranks[id] + " \nDivision: " + divisions[id] + " \nID: "+ ids[id]) 
+                
+            else:
+                print("No crew members with this ID exist")
+                yn = continue_or_menu()
+                if yn == False:
+                    return
         else:
-            print("No crew members of this name exist")
-    elif searchTerm == "Rank":
-        rankSearch = input("Enter the rank you'd like to search for: ").strip().title()
-        rankFound = False
-        for i in range(len(ranks)):
-            if rankSearch == ranks[i]:
-                rank = i
-                print("\n"+ rankSearch, "Rank Crew member details")
-                print("\nName: " + names[rank] + " \nRank: " + ranks[rank] + " \nDivision: " + divisions[rank] + " \nID: "+ ids[rank]) 
-                rankFound = True
-                
-                
-        if not rankFound:
-            print("No crew members of this rank exist")
-    elif searchTerm == "Division":
-        divSearch = input("Enter the division you'd like to search for: ").strip().title()
-        divFound = False
-        for d in range(len(divisions)):
-            if divSearch == divisions[d]:
-                div = d
-                print("\n"+ divSearch, "Division Crew member details")
-                print("\nName: " + names[div] + " \nRank: " + ranks[div] + " \nDivision: " + divisions[div] + " \nID: "+ ids[div]) 
-                divFound = True
-                
-        if not divFound:
-            print("No crew members of this division exist")
-    elif searchTerm == "Id":
-        idSearch = input("Enter the ID you'd like to search for: ").upper().strip()
-        if idSearch in ids:
-            id = ids.index(idSearch)
-            print("Crew member of ID", idSearch, "details\nName: " + names[id] + " \nRank: " + ranks[id] + " \nDivision: " + divisions[id] + " \nID: "+ ids[id]) 
-            
-        else:
-            print("No crew members with this ID exist")
-    else:
-        print("Invalid search parameter")
+            print("Invalid search parameter")
+            yn = continue_or_menu()
+            if yn == False:
+                return
         
 
 
 def filter_division(names,divisions):
-    
-    filter = input("What division would you like to filter the crew members by: ").strip().title()
-    matched = False
-    for i in range(len(divisions)):
-        if filter == divisions[i]:
-            print(filter, "Division crew member: " + names[i])
-            matched = True
-            
+    while True:
+        filter = input("What division would you like to filter the crew members by: ").strip().title()
+        matched = False
+        for i in range(len(divisions)):
+            if filter == divisions[i]:
+                print(filter, "Division crew member: " + names[i])
+                matched = True
+        if matched:
+            return
                 
-    if not matched:
-        print("This division does not exist.")
+                    
+        if not matched:
+            print("That division does not exist.")
+            yn = continue_or_menu()
+            if yn == False:
+                return
             
 
 def calculate_payroll(ranks):
@@ -200,5 +237,15 @@ def count_officers(ranks):
         if ranks[i] == "Commander" or ranks[i] == "Captain":
             count += 1
     print("There are", count, "officers currently on the crew.")
+
+def continue_or_menu():
+    while True:
+        yn = input("Press Y to re-enter data or Press X to return to the menu: ").strip().upper()
+        if yn == "Y":
+            return True
+        elif yn == "X":
+            return False
+        else:
+            print("Invalid choice.")
 
 main()
