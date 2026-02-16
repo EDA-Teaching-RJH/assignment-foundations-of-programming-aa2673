@@ -249,7 +249,7 @@ def count_officers(ranks):
     for i in range(len(ranks)):
         if ranks[i] == "Commander" or ranks[i] == "Captain":
             count += 1
-    print("There are", count, "officers currently on the crew.")
+    print("There are", count, "high ranking officers currently on the crew.")
     input("\nPress Enter to return to menu...")
     return
 
