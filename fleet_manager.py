@@ -63,7 +63,7 @@ def add_member(names,ranks,divisions,ids):
     newMemberName = input("\nNew members' name: ").strip().title()
     newMemberRank = input("New members' rank: ").strip().title()
     newMemberDivision = input("New members' division: ").strip().title()
-    newMemberId = input("New members' ID: ").upper()
+    newMemberId = input("New members' ID: ").upper().strip()
     if newMemberName != "" and newMemberRank in validRanks and newMemberDivision != "" and newMemberId not in ids:
         names.append(newMemberName)
         ranks.append(newMemberRank)
@@ -81,7 +81,7 @@ def display_roster(names,ranks,divisions,ids):
         print(f"{names[i]:<30} {ranks[i]:<30} {divisions[i]:<30} {ids[i]:<30}")
 
 def remove_member(names,ranks,divisions,ids):
-    remove = input("Enter the ID of the crew member you'd like to remove: ").upper()
+    remove = input("Enter the ID of the crew member you'd like to remove: ").upper().strip()
     if remove in ids:
         rmv = ids.index(remove)
         names.pop(rmv)
@@ -97,7 +97,7 @@ def update_rank(names,ranks,ids):
     validRanks = ["Fleet Admiral","Admiral", "Vice Admiral", "Rear Admiral", "Captain", "Commander", "Lieutenant Commander", "Lieutenant", "Ensign", "Cadet"]
 
         
-    update = input("Enter the ID of the crew member whose rank you'd like to update: ").upper()
+    update = input("Enter the ID of the crew member whose rank you'd like to update: ").upper().strip()
     if update in ids:
         findMember = ids.index(update)
         
@@ -110,6 +110,7 @@ def update_rank(names,ranks,ids):
     
         else:
             print("Invalid rank")
+        
     
     else:
         print("Invalid ID")
@@ -153,7 +154,7 @@ def search_crew(names,ranks,divisions,ids):
         if not divFound:
             print("No crew members of this division exist")
     elif searchTerm == "Id":
-        idSearch = input("Enter the ID you'd like to search for: ").upper()
+        idSearch = input("Enter the ID you'd like to search for: ").upper().strip()
         if idSearch in ids:
             id = ids.index(idSearch)
             print("Crew member of ID", idSearch, "details\nName: " + names[id] + " \nRank: " + ranks[id] + " \nDivision: " + divisions[id] + " \nID: "+ ids[id]) 
@@ -173,7 +174,7 @@ def filter_division(names,divisions):
         if filter == divisions[i]:
             print(filter, "Division crew member: " + names[i])
             matched = True
-            return
+            
                 
     if not matched:
         print("This division does not exist.")
