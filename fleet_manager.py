@@ -29,7 +29,7 @@ def display_menu(names,ranks,divisions,ids):
         elif choice == "6":
             filter_division(names,divisions)
         elif choice == "7":
-            calculate_payroll()
+            calculate_payroll(ranks)
         elif choice == "8":
             count_officers()
         elif choice == "9":
@@ -109,24 +109,28 @@ def remove_member(names,ranks,divisions,ids):
 def update_rank(names,ranks,ids):
     validRanks = ["Fleet Admiral","Admiral", "Vice Admiral", "Rear Admiral", "Captain", "Commander", "Lieutenant Commander", "Lieutenant", "Ensign", "Cadet"]
     while True:
-        escape = input("Press N to return to menu or Y to continue: ").upper()
+        escape = input("Press N to return to menu or Y to continue: ").upper().strip()
         if escape == "N":
             break
         elif escape == "Y":
             update = input("Enter the ID of the crew member whose rank you'd like to update: ").upper()
             if update in ids:
                 findMember = ids.index(update)
-                break
+                while True:
+                    rankUpdate = input("What rank would you like to change " + ranks[findMember] + " " + names[findMember] + " to: ").strip().title()
+                    if rankUpdate in validRanks:
+                        ranks[findMember] = rankUpdate
+                        print("Crew member's rank has been updated.")
+                        return
+            
+                
+                    else:
+                        print("Invalid rank")
+                
             else:
                 print("Invalid ID")
-        while True:
-            rankUpdate = input("What rank would you like to change " + ranks[findMember] + " " + names[findMember] + " to: ").strip().title()
-            if rankUpdate in validRanks:
-                ranks[findMember] = rankUpdate
-                print("Crew member's rank has been updated.")
-                break
-            else:
-                print("Invalid rank")
+            
+           
             
 
 def search_crew(names,ranks,divisions,ids):
@@ -153,6 +157,7 @@ def search_crew(names,ranks,divisions,ids):
                         print("\n"+ rankSearch, "Rank Crew member details")
                         print("\nName: " + names[rank] + " \nRank: " + ranks[rank] + " \nDivision: " + divisions[rank] + " \nID: "+ ids[rank]) 
                         rankFound = True
+                        break
                         
                 if not rankFound:
                     print("No crew members of this rank exist")
@@ -165,6 +170,7 @@ def search_crew(names,ranks,divisions,ids):
                         print("\n"+ divSearch, "Division Crew member details")
                         print("\nName: " + names[div] + " \nRank: " + ranks[div] + " \nDivision: " + divisions[div] + " \nID: "+ ids[div]) 
                         divFound = True
+                        break
                 if not divFound:
                     print("No crew members of this division exist")
             elif searchTerm == "Id":
@@ -195,6 +201,25 @@ def filter_division(names,divisions):
                     
             if not matched:
                 print("This division does not exist.")
+
+def calculate_payroll(ranks):
+    validRanks = ["Fleet Admiral","Admiral", "Vice Admiral", "Rear Admiral", "Captain", "Commander", "Lieutenant Commander", "Lieutenant", "Ensign", "Cadet"]
+    rankSalary = []
+    for i in range(len(validRanks)):
+        rankSalary.append(1000 - (100 * i))
+    
+    while True:
+        escape = input("Press N to return to menu or Y to continue: ").upper().strip()
+        if escape == "N":
+            break
+        elif escape == "Y":
+            crewCost = 0
+            for rank in ranks:
+                index = validRanks.index(rank)
+                crewCost += rankSalary[index]
             
+        print("Crew's total salary is", crewCost)
+        break
+
 
 main()
