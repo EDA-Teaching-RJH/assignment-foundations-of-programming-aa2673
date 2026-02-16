@@ -100,17 +100,17 @@ def update_rank(names,ranks,ids):
     update = input("Enter the ID of the crew member whose rank you'd like to update: ").upper()
     if update in ids:
         findMember = ids.index(update)
-        while True:
-            rankUpdate = input("What rank would you like to change " + ranks[findMember] + " " + names[findMember] + " to: ").strip().title()
-            if rankUpdate in validRanks:
-                ranks[findMember] = rankUpdate
-                print("Crew member's rank has been updated.")
-                return
+        
+        rankUpdate = input("What rank would you like to change " + ranks[findMember] + " " + names[findMember] + " to: ").strip().title()
+        if rankUpdate in validRanks:
+            ranks[findMember] = rankUpdate
+            print("Crew member's rank has been updated.")
+            return
+
     
-        
-            else:
-                print("Invalid rank")
-        
+        else:
+            print("Invalid rank")
+    
     else:
         print("Invalid ID")
             
@@ -166,17 +166,17 @@ def search_crew(names,ranks,divisions,ids):
 
 
 def filter_division(names,divisions):
-    while True:
-        filter = input("What division would you like to filter the crew members by: ").strip().title()
-        matched = False
-        for i in range(len(divisions)):
-            if filter == divisions[i]:
-                print(filter, "Division crew member: " + names[i])
-                matched = True
-                return
-                    
-        if not matched:
-            print("This division does not exist.")
+    
+    filter = input("What division would you like to filter the crew members by: ").strip().title()
+    matched = False
+    for i in range(len(divisions)):
+        if filter == divisions[i]:
+            print(filter, "Division crew member: " + names[i])
+            matched = True
+            return
+                
+    if not matched:
+        print("This division does not exist.")
             
 
 def calculate_payroll(ranks):
