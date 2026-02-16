@@ -36,7 +36,7 @@ def display_menu(names,ranks,divisions,ids):
             print("Shutting Down...")
             break
         else:
-                    print("Invalid choice")
+            print("Invalid choice")
     
         systemCheck = 1
         if systemCheck > 0:
