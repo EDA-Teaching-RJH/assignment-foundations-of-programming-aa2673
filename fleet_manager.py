@@ -14,6 +14,7 @@ def display_menu(names,ranks,divisions,ids):
                 
     
     while True:
+        print("\nCurrently logged in:", username)
         print("\n---MENU--- \n1. Add Member \n2. Remove Member \n3. Update Rank \n4. Display Roster \n5. Search Crew \n6. Filter Crew by division \n7. Calculate Payroll \n8. Count Officers \n9. Exit ")
         choice = input("Select an option: ")
         if choice == "1":
