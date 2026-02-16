@@ -71,6 +71,8 @@ def add_member(names,ranks,divisions,ids):
             divisions.append(newMemberDivision)
             ids.append(newMemberId)
             print("New member added.")
+            input("\nPress Enter to return to menu...")
+            return
             
         else:
             print("Invalid.")
@@ -83,6 +85,8 @@ def display_roster(names,ranks,divisions,ids):
     print(f"{'Name':<30} {'Rank':<30} {'Division':<30} {'ID':<30}")
     for i in range(len(names)):
         print(f"{names[i]:<30} {ranks[i]:<30} {divisions[i]:<30} {ids[i]:<30}")
+    input("\nPress Enter to return to menu...")
+    return
 
 def remove_member(names,ranks,divisions,ids):
     while True:
@@ -94,6 +98,7 @@ def remove_member(names,ranks,divisions,ids):
             divisions.pop(rmv)
             ids.pop(rmv)
             print("Crew member removed")
+            input("\nPress Enter to return to menu...")
             return
         else:
             print("ID not found among existing crewmates")
@@ -113,6 +118,7 @@ def update_rank(names,ranks,ids):
             if rankUpdate in validRanks:
                 ranks[findMember] = rankUpdate
                 print("Crew member's rank has been updated.")
+                input("\nPress Enter to return to menu...")
                 return
 
         
@@ -140,6 +146,7 @@ def search_crew(names,ranks,divisions,ids):
             if nameSearch in names:
                 name = names.index(nameSearch)
                 print("Crew member", nameSearch, "details\nName: " + names[name] + " \nRank: " + ranks[name] + " \nDivision: " + divisions[name] + " \nID: "+ ids[name]) 
+                input("\nPress Enter to return to menu...")
                 return
             else:
                 print("No crew members of this name exist")
@@ -156,6 +163,7 @@ def search_crew(names,ranks,divisions,ids):
                     print("\nName: " + names[rank] + " \nRank: " + ranks[rank] + " \nDivision: " + divisions[rank] + " \nID: "+ ids[rank]) 
                     rankFound = True
             if rankFound:
+                input("\nPress Enter to return to menu...")
                 return
                     
             if not rankFound:
@@ -173,6 +181,7 @@ def search_crew(names,ranks,divisions,ids):
                     print("\nName: " + names[div] + " \nRank: " + ranks[div] + " \nDivision: " + divisions[div] + " \nID: "+ ids[div]) 
                     divFound = True
             if divFound:
+                input("\nPress Enter to return to menu...")
                 return
             if not divFound:
                 print("No crew members of this division exist")
@@ -184,7 +193,8 @@ def search_crew(names,ranks,divisions,ids):
             if idSearch in ids:
                 id = ids.index(idSearch)
                 print("Crew member of ID", idSearch, "details\nName: " + names[id] + " \nRank: " + ranks[id] + " \nDivision: " + divisions[id] + " \nID: "+ ids[id]) 
-                
+                input("\nPress Enter to return to menu...")
+                return
             else:
                 print("No crew members with this ID exist")
                 yn = continue_or_menu()
@@ -207,6 +217,7 @@ def filter_division(names,divisions):
                 print(filter, "Division crew member: " + names[i])
                 matched = True
         if matched:
+            input("\nPress Enter to return to menu...")
             return
                 
                     
@@ -229,7 +240,8 @@ def calculate_payroll(ranks):
         crewCost += rankSalary[index]
             
     print("Crew's total salary is", crewCost)
-    
+    input("\nPress Enter to return to menu...")
+    return
 
 def count_officers(ranks):
     count = 0
@@ -237,6 +249,8 @@ def count_officers(ranks):
         if ranks[i] == "Commander" or ranks[i] == "Captain":
             count += 1
     print("There are", count, "officers currently on the crew.")
+    input("\nPress Enter to return to menu...")
+    return
 
 def continue_or_menu():
     while True:
